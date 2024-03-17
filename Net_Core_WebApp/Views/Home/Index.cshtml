@@ -1,0 +1,76 @@
+﻿@model Net_Core_WebApp.ViewModel.PersonViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container-fluid">
+    <br>  <p class="text-center">Used bootstrap components to develope simple ASP.Net Core MVC application</p>
+    <hr>
+    <div class="card bg-light">
+        <div class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mb-3 text-center">Simple Data Posting application</h4>
+            @Html.ValidationSummary(false, "", new { @class = "error-list alert-danger" })
+            @if (Model.successErrorMessage != null && !string.IsNullOrEmpty(Model.successErrorMessage.Message))
+            {
+                var alertClass = Model.successErrorMessage.IsErrored ? "alert-danger" : "alert-success";
+                var heading = !Model.successErrorMessage.IsErrored ? "Success" : "Error";
+                <div class="alert @alertClass alert-dismissible fade show" role="alert">
+                    <h4 class="alert-heading">
+                        @heading
+                    </h4>
+                    <p>@Model.successErrorMessage.Message.</p>
+                </div>
+            }
+
+            <form asp-action="Submit" method="post" class="needs-validation" novalidate>
+                @Html.AntiForgeryToken()
+                <div class="form-group input-group m-2">
+                    <div class="input-group-prepend">
+                        @Html.LabelFor(m => m.person.FirstName, new { @class = "input-group-text" })
+                    </div>
+                    @Html.TextBoxFor(m => m.person.FirstName, new { @class = "form-control", @placeholder = "Enter first name", required = "required" })
+                    <div class="invalid-feedback">
+                        Please provide first name.
+                    </div>
+                </div>
+                <div class="form-group input-group m-2">
+                    <div class="input-group-prepend">
+                        @Html.LabelFor(m => m.person.LastName, new { @class = "input-group-text" })
+                    </div>
+                    @Html.TextBoxFor(m => m.person.LastName, new { @class = "form-control", @placeholder = "Enter first name", required = "required" })
+                    <div class="invalid-feedback">
+                        Please provide last name.
+                    </div>
+                </div>
+                <div class="form-group m-2 text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+            @await Component.InvokeAsync("UserList")
+            
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = $('.needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+            setTimeout(() => {
+                $('.alert').alert('close');
+            }, 3000);
+        });
+    </script>
+}
