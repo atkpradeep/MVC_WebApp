@@ -25,7 +25,7 @@ This repository contains a simple ASP.NET MVC web application.
 ```
   dotnet run
 ```
-This will start the application and you can usually access it in your web browser at http://localhost:5000 (the exact port might vary).
+This will start the application and you can usually access it in your web browser at http://localhost:5069 (the exact port might vary).
 # Project Structure
 
 The project is structured as follows:
@@ -51,3 +51,8 @@ Here are some potential areas for further development:
 - Implement data access with a database instead of relying on a local file for user data.
 - Create more controllers, models, and views to implement additional features.
 - Style the user interface with CSS or a CSS framework (e.g., Bootstrap).
+
+# Below is simple screenshot for form
+
+  ![image](https://github.com/atkpradeep/MVC_WebApp/assets/32030192/24b173b7-eaaa-4e98-b5c2-1b977ebb36a4)
+
